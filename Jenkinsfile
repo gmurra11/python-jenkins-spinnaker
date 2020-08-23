@@ -12,9 +12,9 @@ pipeline {
       label 'python_app'
       yaml """
         kind: Pod
-          metadata:
+        metadata:
           name: jenkins-agent
-          spec:
+        spec:
           containers:
           - name: kaniko
             image: gcr.io/kaniko-project/executor:debug
