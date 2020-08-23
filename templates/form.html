@@ -1,0 +1,21 @@
+{% extends "base.html"%}
+{% block content %}
+
+<div>
+ <table class=bordered>
+    <tr>
+      <td>IP: <b>{{ ip  }}</b></td>
+    </tr>
+    <tr>
+      <td>Pod Name: <b>{{ hostname }}</b></td>
+    </tr>
+    <tr>
+      <td>Version: <b>{{ version }}</b></td>
+    </tr>
+    <tr class="card grey">
+      <td><b>{{ namespace }}</b></td>
+    </tr>
+ <table/>
+</div>
+
+{% endblock %}
