@@ -29,7 +29,9 @@ pipeline {
           volumes:
             - name: docker-registry-config
               configMap:
-                name: docker-registry-config
+              items:
+                - key: my-docker
+                  path: docker-registry-config
           """
           }
   }
