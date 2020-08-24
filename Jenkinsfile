@@ -50,7 +50,7 @@ pipeline {
     stage('Build and Push Image') {
       steps {
         container('kaniko') {
-            sh "/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=index.docker.io/gmurra11/python-ptds:${VERSION}"
+            sh "/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
         }
       }
     }
