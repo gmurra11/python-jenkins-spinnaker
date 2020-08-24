@@ -41,7 +41,7 @@ pipeline {
       steps {
         container('kaniko') {
           sh """
-            echo "test"
+            `pwd`; ls -lrt
           """
         }
       }
