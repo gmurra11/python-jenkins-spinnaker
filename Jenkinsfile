@@ -49,6 +49,7 @@ pipeline {
 
     stage('Build and Push Image') {
       steps {
+        git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
         container('kaniko') {
             sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=index.docker.io/gmurra11/python-ptds:${VERSION}'
         }
