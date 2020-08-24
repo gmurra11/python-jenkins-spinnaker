@@ -51,7 +51,8 @@ pipeline {
       steps {
         git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
         container('kaniko') {
-            sh "`pwd`; ls -lrt"
+            sh "`pwd`"
+            sh "ls -lrt"
             sh '/kaniko/executor --dockerfile ./Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=index.docker.io/gmurra11/python-ptds:${VERSION}'
         }
       }
