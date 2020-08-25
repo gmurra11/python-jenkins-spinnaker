@@ -15,23 +15,19 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        container('docker') {
           sh """
             echo "test"
           """
         }
-      }
     }
 
     stage('Build and Push Image') {
       steps {
-        container('docker') {
             sh """
               docker build . -t ${IMAGE_TAG}"
               docker push ${IMAGE_TAG}
             """
         }
-      }
     }
   }
 }
