@@ -24,8 +24,7 @@ agent {
     stage('Build and Push Image') {
       steps {
             sh """
-              docker build . -t ${IMAGE_TAG}"
-              docker push ${IMAGE_TAG}
+              echo "test"
             """
         }
     }
