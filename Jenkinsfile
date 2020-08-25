@@ -1,5 +1,9 @@
 pipeline {
 
+agent {
+        docker { image 'node:14-alpine' }
+    }
+
   environment {
     PROJECT = "gmura11"
     APP_NAME = "python_app"
@@ -9,10 +13,6 @@ pipeline {
   }
 
   stages {
-  agent {
-          docker { image 'node:14-alpine' }
-      }
-
     stage('Test') {
       steps {
           sh """
