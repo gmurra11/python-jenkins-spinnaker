@@ -24,11 +24,13 @@ pipeline {
           registryCredential = 'dockerhub'
         }
       steps {
+         script {
          def appimage = docker.build REGISTRY + ":$BUILD_NUMBER"
          docker.withRegistry( '', registryCredential) {
              appimage.push()
              appimage.push('latest')
          }
+        }
       }
     }
   }
