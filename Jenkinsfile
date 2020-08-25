@@ -14,7 +14,7 @@ pipeline {
     stage('Test') {
       steps {
           sh """
-            echo "test"
+            echo "yeeeeeeeeeeeeeeeeeee"
           """
         }
     }
