@@ -1,6 +1,7 @@
 pipeline {
 
   environment {
+    PROJECT = "gmura11"
     APP_NAME = "python_app"
     IMAGE_TAG = "index.docker.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     VERSION = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
@@ -8,38 +9,13 @@ pipeline {
   }
 
   agent {
-    kubernetes {
-      label 'python_app'
-      yaml """
-        kind: Pod
-        metadata:
-          name: jenkins-agent
-        spec:
-          containers:
-          - name: kaniko
-            image: gcr.io/kaniko-project/executor:debug
-            imagePullPolicy: Always
-            command:
-            - /busybox/cat
-            tty: true
-            volumeMounts:
-              - name: docker-registry-config
-                mountPath: /kaniko/.docker
-          restartPolicy: Never
-          volumes:
-            - name: docker-registry-config
-              configMap:
-              items:
-                - key: my-docker
-                  path: docker-registry-config
-          """
-          }
-  }
+          docker { image 'node:14-alpine' }
+      }
 
   stages {
     stage('Test') {
       steps {
-        container('kaniko') {
+        container('docker') {
           sh """
             echo "test"
           """
@@ -49,8 +25,11 @@ pipeline {
 
     stage('Build and Push Image') {
       steps {
-        container('kaniko') {
-            sh "/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
+        container('docker') {
+            sh """
+              docker build . -t ${IMAGE_TAG}"
+              docker push ${IMAGE_TAG}
+            """
         }
       }
     }
