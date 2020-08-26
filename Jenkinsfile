@@ -27,13 +27,11 @@ pipeline {
                 mountPath: /kaniko/.docker
           restartPolicy: Never
           volumes:
-          projected:
-            sources:
-            - secret:
-                name: docker-credentials
-                items:
-                  - key: .dockerconfigjson
-                    path: docker-registry-config
+            - name: docker-registry-config
+              configMap:
+              items:
+                - key: .dockerconfigjson
+                  path: docker-registry-config
           """
           }
   }
@@ -55,7 +53,7 @@ pipeline {
     stage('Build and Push Image') {
       steps {
         container('kaniko') {
-            sh "/kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
+            sh "/kaniko/executor --context `pwd` --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
         }
       }
     }
