@@ -16,7 +16,10 @@ pipeline {
           name: jenkins-agent
         spec:
           containers:
+          - name: jnlp
+            workingDir: /tmp/jenkins
           - name: kaniko
+            workingDir: /tmp/jenkins
             image: gcr.io/kaniko-project/executor:debug
             imagePullPolicy: Always
             command:
@@ -27,14 +30,11 @@ pipeline {
                 mountPath: /kaniko/.docker
           restartPolicy: Never
           volumes:
-          - name: docker-registry-config
-            projected:
-              sources:
-              - secret:
-                  name: docker-credentials
-                  items:
-                    - key: .dockerconfigjson
-                      path: docker-registry-config
+            - name: docker-registry-config
+              configMap:
+              items:
+                - key: .dockerconfigjson
+                  path: docker-registry-config
           """
           }
   }
