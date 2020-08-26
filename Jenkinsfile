@@ -41,9 +41,6 @@ pipeline {
 
   stages {
     stage('Test') {
-      environment {
-         PATH = "/busybox:/kaniko:$PATH"
-      }
       steps {
         container('kaniko') {
           sh """
@@ -54,10 +51,13 @@ pipeline {
     }
 
     stage('Build and Push Image') {
+      environment {
+          PATH = "/busybox:/kaniko:$PATH"
+      }
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
             git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
-            sh "/kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=poo"
+            sh "/kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
         }
       }
     }
