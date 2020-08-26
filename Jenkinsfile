@@ -64,6 +64,7 @@ pipeline {
             ls -lrt /tmp/jenkins
             ls -lrt /tmp/jenkins/workspace
             /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}
+            cat /kaniko/Dockerfile
             """
         }
       }
