@@ -59,6 +59,7 @@ pipeline {
             git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
             git 'https://github.com/gmurra11/python-jenkins-spinnaker.git'
             sh """
+            df -Ph
             ls -lrt /tmp/jenkins/workspace/my-app2_development
             ls -lrt /tmp/jenkins
             ls -lrt /tmp/jenkins/workspace
