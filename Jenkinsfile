@@ -60,7 +60,7 @@ pipeline {
             git 'https://github.com/gmurra11/python-jenkins-spinnaker.git'
             sh """
             df -Ph
-            ls -lrt /kaniko/.docker
+            ls -lart /kaniko/.docker
             ls -lrt /tmp/jenkins/workspace/my-app2_development
             ls -lrt /tmp/jenkins
             ls -lrt /tmp/jenkins/workspace
