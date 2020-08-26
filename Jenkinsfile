@@ -1,10 +1,10 @@
 pipeline {
 
   environment {
-    APP_NAME = "python_app"
-    IMAGE_TAG = "index.docker.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+    REGISTRY = "index.docker.io"
+    PROJECT = "gmurra11"
+    IMAGE = "python_app"
     VERSION = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
-    JENKINS_CRED = "${PROJECT}"
   }
 
   agent {
@@ -55,7 +55,7 @@ pipeline {
       steps {
         container('kaniko') {
             sh """
-            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=index.docker.io/gmurra11/python-ptds:${VERSION}
+            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=${REGISTRY}/${PROJECT}/${IMAGE}:${VERSION}
             """
         }
       }
