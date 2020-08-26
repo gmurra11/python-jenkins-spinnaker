@@ -27,11 +27,13 @@ pipeline {
                 mountPath: /kaniko/.docker
           restartPolicy: Never
           volumes:
-            - name: docker-registry-config
-              configMap:
-              items:
-                - key: .dockerconfigjson
-                  path: docker-registry-config
+          projected:
+            sources:
+            - secret:
+                name: docker-credentials
+                items:
+                  - key: .dockerconfigjson
+                    path: docker-registry-config
           """
           }
   }
