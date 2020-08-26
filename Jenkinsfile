@@ -55,7 +55,7 @@ pipeline {
 
     stage('Build and Push Image') {
       steps {
-        container('kaniko') {
+        container(name: 'kaniko', shell: '/busybox/sh') {
             git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
             sh "/kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
         }
