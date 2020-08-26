@@ -3,7 +3,7 @@ pipeline {
   environment {
     REGISTRY = "index.docker.io"
     PROJECT = "gmurra11"
-    IMAGE = "python_app"
+    IMAGE = "python-ptds"
     VERSION = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
   }
 
