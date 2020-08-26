@@ -57,6 +57,7 @@ pipeline {
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
             git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
+            git 'https://github.com/gmurra11/python-jenkins-spinnaker.git'
             sh """
             ls -lrt /tmp/jenkins/workspace/my-app2_development
             ls -lrt /tmp/jenkins
