@@ -17,7 +17,6 @@ pipeline {
         spec:
           containers:
           - name: kaniko
-            workingDir: /home/jenkins
             image: gcr.io/kaniko-project/executor:debug
             imagePullPolicy: Always
             command:
