@@ -17,6 +17,7 @@ pipeline {
         spec:
           containers:
           - name: kaniko
+            workingDir: /home/jenkins
             image: gcr.io/kaniko-project/executor:debug
             imagePullPolicy: Always
             command:
@@ -30,7 +31,7 @@ pipeline {
             - name: docker-registry-config
               configMap:
               items:
-                - key: my-docker
+                - key: .dockerconfigjson
                   path: docker-registry-config
           """
           }
@@ -38,6 +39,9 @@ pipeline {
 
   stages {
     stage('Test') {
+      environment {
+         PATH = "/busybox:/kaniko:$PATH"
+      }
       steps {
         container('kaniko') {
           sh """
