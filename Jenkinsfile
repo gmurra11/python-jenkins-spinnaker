@@ -17,7 +17,6 @@ pipeline {
         spec:
           containers:
           - name: kaniko
-            workingDir: /home/jenkins
             image: gcr.io/kaniko-project/executor:debug
             imagePullPolicy: Always
             command:
@@ -51,7 +50,7 @@ pipeline {
     stage('Build and Push Image') {
       steps {
         container('kaniko') {
-            sh "/kaniko/executor -c `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
+            sh "/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
         }
       }
     }
