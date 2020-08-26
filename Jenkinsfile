@@ -16,8 +16,6 @@ pipeline {
           name: jenkins-agent
         spec:
           containers:
-          - name: jnlp
-            workingDir: /tmp/jenkins
           - name: kaniko
             workingDir: /tmp/jenkins
             image: gcr.io/kaniko-project/executor:debug
@@ -54,17 +52,9 @@ pipeline {
     }
 
     stage('Build and Push Image') {
-      environment {
-          PATH = "/busybox:/kaniko:$PATH"
-      }
       steps {
-        container(name: 'kaniko', shell: '/busybox/sh') {
+        container('kaniko') {
             sh """
-            df -Ph
-            ls -lart /kaniko/.docker
-            ls -lrt /tmp/jenkins/workspace/my-app2_development
-            ls -lrt /tmp/jenkins
-            ls -lrt /tmp/jenkins/workspace
             /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=index.docker.io/gmurra11/python-ptds:${VERSION}
             """
         }
