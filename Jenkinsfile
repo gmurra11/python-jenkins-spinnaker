@@ -59,6 +59,8 @@ pipeline {
             git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
             sh """
             ls -lrt /tmp/jenkins/workspace/my-app2_development
+            ls -lrt /tmp/jenkins
+            ls -lrt /tmp/jenkins/workspace
             /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}
             """
         }
