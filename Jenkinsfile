@@ -26,15 +26,18 @@ pipeline {
             - /busybox/cat
             tty: true
             volumeMounts:
-              - name: docker-registry-config
+              - name: jenkins-docker-cfg
                 mountPath: /kaniko/.docker
           restartPolicy: Never
           volumes:
-            - name: docker-registry-config
-              configMap:
-              items:
-                - key: .dockerconfigjson
-                  path: docker-registry-config
+          - name: jenkins-docker-cfg
+            projected:
+              sources:
+              - secret:
+                  name: regcred
+                  items:
+                   - key: .dockerconfigjson
+                      path: config.json
           """
           }
   }
@@ -56,8 +59,6 @@ pipeline {
       }
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
-            git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
-            git 'https://github.com/gmurra11/python-jenkins-spinnaker.git'
             sh """
             df -Ph
             ls -lart /kaniko/.docker
