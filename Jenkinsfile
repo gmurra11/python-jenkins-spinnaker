@@ -57,7 +57,10 @@ pipeline {
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
             git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
-            sh "/kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}"
+            sh """
+            ls -lrt /tmp/jenkins/workspace/my-app2_development
+            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=gmurra11/python-ptds:${VERSION}
+            """
         }
       }
     }
