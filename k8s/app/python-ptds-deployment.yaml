@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
   name: python-ptds
-  namespace: ${execution['stages'][1]['name']}
+  namespace: development
 spec:
   replicas: 3
   template:
@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: python-ptds-image
-        image: gmurra11/python-ptds
+        image: gmurra11/python-ptds:development.67
         resources:
           limits:
             memory: "500Mi"
