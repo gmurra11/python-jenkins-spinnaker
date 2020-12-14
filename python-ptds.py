@@ -1,7 +1,9 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort
+from prometheus_flask_exporter import PrometheusMetrics
 import socket
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 hostname = socket.gethostname()
 ip = socket.gethostbyname(hostname)

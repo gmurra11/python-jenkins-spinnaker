@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: spinnaker-ingress
+  namespace: spinnaker
+spec:
+  rules:
+  - host: spinnaker
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: spin-deck
+          servicePort: 9000
