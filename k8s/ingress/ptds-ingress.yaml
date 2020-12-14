@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ptds-ingress
+  namespace: development
+spec:
+  rules:
+  - host: minikube
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: python-ptds-service
+          servicePort: 5000
