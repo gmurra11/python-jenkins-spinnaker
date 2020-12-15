@@ -18,7 +18,7 @@ pipeline {
           containers:
           - name: kaniko
             workingDir: /tmp/jenkins
-            image: gcr.io/kaniko-project/executor:debug
+            image: gcr.io/kaniko-project/executor:latest
             imagePullPolicy: Always
             command:
             - /busybox/cat
@@ -55,7 +55,7 @@ pipeline {
       steps {
         container('kaniko') {
             sh """
-            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --verbosity=debug --cache=false --destination=${REGISTRY}/${PROJECT}/${IMAGE}:${VERSION}
+            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=${REGISTRY}/${PROJECT}/${IMAGE}:${VERSION}
             """
         }
       }
