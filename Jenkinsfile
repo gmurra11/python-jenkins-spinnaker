@@ -18,7 +18,7 @@ pipeline {
           containers:
           - name: kaniko
             workingDir: /tmp/jenkins
-            image: gcr.io/kaniko-project/executor:debug
+            image: gcr.io/kaniko-project/executor:debug-b04399eeac3da9533a8cfa1db7650b8899af5a8d
             imagePullPolicy: Always
             command:
             - /busybox/cat
