@@ -55,7 +55,7 @@ pipeline {
       steps {
         container('kaniko') {
             sh """
-            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=false --destination=${REGISTRY}/${PROJECT}/${IMAGE}:${VERSION}
+            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --verbosity=debug --cache=false --destination=${REGISTRY}/${PROJECT}/${IMAGE}:${VERSION}
             """
         }
       }
