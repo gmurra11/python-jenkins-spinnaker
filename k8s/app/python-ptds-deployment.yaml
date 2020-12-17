@@ -10,7 +10,7 @@ spec:
       name: python-ptds
       labels:
         app: python-ptds
-        version: spinnaker-will-replace
+        version: jenkins-will-replace
     spec:
       containers:
       - name: python-ptds-image
