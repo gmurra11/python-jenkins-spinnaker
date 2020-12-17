@@ -4,7 +4,8 @@ pipeline {
     REGISTRY = "index.docker.io"
     PROJECT = "gmurra11"
     IMAGE = "python-ptds"
-    VERSION = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+    VERSION = "${env.BUILD_NUMBER}"
+    BRANCH = "${env.BRANCH_NAME}"
   }
 
   agent {
@@ -51,11 +52,19 @@ pipeline {
       }
     }
 
+    stage('Add k8s Labels') {
+      steps {
+        container('kaniko') {
+          sh("sed -i.bak 's#version: jenkins-will-replace#version: ${VERSION}#' ./k8s/app/*.yaml")
+        }
+      }
+    }
+
     stage('Build and Push Image') {
       steps {
         container('kaniko') {
             sh """
-            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination=${REGISTRY}/${PROJECT}/${IMAGE}:${VERSION}
+            /kaniko/executor --context `pwd` --verbosity debug --insecure --skip-tls-verify --cache=true --destination="${REGISTRY}/${PROJECT}/${IMAGE}:${BRANCH}.${VERSION}"
             """
         }
       }
