@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
   name: python-ptds
-  namespace: ${execution['stages'][1]['name']}
+  namespace: production-namespace
 spec:
   replicas: 3
   template:
