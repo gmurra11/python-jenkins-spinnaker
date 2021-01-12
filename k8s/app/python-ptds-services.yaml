@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: python-ptds-service
+  name: python-ptds-service-prod
   namespace: production-namespace
   labels:
     app: python-ptds
