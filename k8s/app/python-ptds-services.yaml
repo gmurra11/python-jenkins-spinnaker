@@ -3,6 +3,9 @@ apiVersion: v1
 metadata:
   name: python-ptds-service
   namespace: ${execution['stages'][1]['name']}
+  labels:
+    app: python-ptds
+    version: jenkins-will-replace
 spec:
   type: NodePort
   ports:
