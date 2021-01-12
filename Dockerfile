@@ -1,6 +1,10 @@
 FROM alpine:3.7
 
-RUN apk add python3 curl -y
+RUN apk upgrade --no-cache \
+  && apk add --no-cache \
+  python3 \
+  curl -y
+
 RUN pip3 install Flask prometheus_flask_exporter
 
 COPY . /app
