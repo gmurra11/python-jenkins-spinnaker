@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: python-ptds-service
-  namespace: ${execution['stages'][1]['name']}
+  namespace: production-namespace
   labels:
     app: python-ptds
     version: jenkins-will-replace
