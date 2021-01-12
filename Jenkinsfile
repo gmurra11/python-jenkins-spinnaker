@@ -57,8 +57,8 @@ pipeline {
         container('kaniko') {
           sh """
           sed -i.bak 's#version: jenkins-will-replace#version: ${VERSION}#' ./k8s/app/*.yaml;
-          sed -i.bak 's#name: python-ptds-*#name: python-ptds-${BRANCH}' ./k8s/app/*.yaml;
-          sed -i.bak 's#name: python-ptds-service-*#name: python-ptds-service-${BRANCH}' ./k8s/app/*.yaml;
+          sed -i.bak 's#name: python-ptds-*#name: python-ptds-${BRANCH}#' ./k8s/app/*.yaml;
+          sed -i.bak 's#name: python-ptds-service-*#name: python-ptds-service-${BRANCH}#' ./k8s/app/*.yaml;
           """
         }
       }
