@@ -1,8 +1,8 @@
 kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
-  name: python-ptds-prod
-  namespace: production-namespace
+  name: python-ptds
+  namespace: production
 spec:
   replicas: 3
   template:
@@ -10,7 +10,7 @@ spec:
       name: python-ptds
       labels:
         app: python-ptds
-        version: jenkins-will-replace
+        type: {{ .Values.type }}
     spec:
       containers:
       - name: python-ptds-image
