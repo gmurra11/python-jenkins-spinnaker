@@ -2,10 +2,14 @@ kind: Service
 apiVersion: v1
 metadata:
   name: python-ptds-service
+<<<<<<< HEAD:k8s/app/python-ptds-services.yaml
   namespace: production-namespace
+=======
+  namespace: production
+>>>>>>> canary:k8s/helm/app/python-ptds-services.yaml
   labels:
     app: python-ptds
-    version: jenkins-will-replace
+    type: {{ .Values.type }}
 spec:
   type: NodePort
   ports:

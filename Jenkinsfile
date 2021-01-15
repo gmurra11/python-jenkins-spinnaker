@@ -52,14 +52,6 @@ pipeline {
       }
     }
 
-    stage('Add k8s Labels') {
-      steps {
-        container('kaniko') {
-          sh("sed -i.bak 's#version: jenkins-will-replace#version: ${VERSION}#' ./k8s/app/*.yaml")
-        }
-      }
-    }
-
     stage('Build and Push Image') {
       steps {
         container('kaniko') {
