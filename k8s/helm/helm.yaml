@@ -1,0 +1,53 @@
+---
+# Source: ptds/templates/app/python-ptds-services.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: python-ptds-service
+  namespace: production
+  labels:
+    app: python-ptds
+    type: canary
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 5000
+    protocol: TCP
+  selector:
+    app: python-ptds
+---
+# Source: ptds/templates/app/python-ptds-deployment.yaml
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: python-ptds
+  namespace: production
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: python-ptds
+      labels:
+        app: python-ptds
+        type: canary
+    spec:
+      containers:
+      - name: python-ptds-image
+        image: gmurra11/python-ptds
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "100m"
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /ptds
+            port: 5000
+          timeoutSeconds: 5
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        ports:
+        - name: python-ptds
+          containerPort: 80
